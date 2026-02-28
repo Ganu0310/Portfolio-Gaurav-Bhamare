@@ -54,9 +54,24 @@ import netCert from "../assets/bit and bites.pdf";
 import awsCert from "../assets/aws.pdf";
 
 export const certifications = [
-  { title: "Python for Data Structures and Algorithms", org: "NPTEL", link: pythonCert },
-  { title: "Bits and Bytes of Computer Networking", org: "Google", link: netCert },
-  { title: "AWS Cloud Practitioner", org: "AWS", link: awsCert },
+  { 
+    title: "Python for Data Structures and Algorithms", 
+    org: "NPTEL", 
+    link: pythonCert,
+    description: "An intensive course focusing on algorithm design, data structures (Arrays, Linked Lists, Trees, Graphs), and complexity analysis. Emphasizes problem-solving and optimization using Python, preparing for competitive programming and technical interviews."
+  },
+  { 
+    title: "Bits and Bytes of Computer Networking", 
+    org: "Google", 
+    link: netCert,
+    description: "A comprehensive Google IT Support professional certificate course covering the fundamentals of modern networking technologies and protocols. Includes deep dives into the TCP/IP model, DNS, DHCP, routing, and network troubleshooting."
+  },
+  { 
+    title: "AWS Cloud Practitioner", 
+    org: "AWS", 
+    link: awsCert,
+    description: "Validates overall understanding of the AWS Cloud platform, covering basic cloud concepts, security, and compliance. Demonstrates foundational knowledge of core AWS services like EC2, S3, RDS, and the AWS shared responsibility model."
+  },
 ];
 
 export const education = [
