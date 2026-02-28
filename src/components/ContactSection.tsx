@@ -1,15 +1,40 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, Linkedin, Github, Send, CheckCircle } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Send, CheckCircle, Loader2 } from "lucide-react";
 import { contactInfo } from "@/data/portfolio";
 
 const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setIsSubmitting(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        e.currentTarget.reset();
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setError(data.message || "Something went wrong.");
+      }
+    } catch (err) {
+      setError("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -30,27 +55,32 @@ const ContactSection = () => {
           >
             <input
               type="text"
+              name="name"
               placeholder="Name"
               required
               className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
             />
             <input
               type="email"
+              name="email"
               placeholder="Email"
               required
               className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
             />
             <textarea
+              name="message"
               placeholder="Message"
               rows={5}
               required
               className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors resize-none"
             />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
             <button
               type="submit"
-              className="bg-foreground text-background px-6 py-3 text-sm font-medium flex items-center gap-2 hover:opacity-90 transition-opacity"
+              disabled={isSubmitting || submitted}
+              className="bg-foreground text-background px-6 py-3 text-sm font-medium flex items-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitted ? <><CheckCircle size={16} /> Sent!</> : <><Send size={16} /> Send Message</>}
+              {isSubmitting ? <><Loader2 className="animate-spin" size={16} /> Sending...</> : submitted ? <><CheckCircle size={16} /> Sent!</> : <><Send size={16} /> Send Message</>}
             </button>
           </motion.form>
 

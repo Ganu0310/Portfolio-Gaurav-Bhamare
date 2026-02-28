@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, Download } from "lucide-react";
+import resumePdf from "../assets/Resume final.pdf";
 
 const ResumeSection = () => (
   <section id="resume" className="py-24">
@@ -14,9 +15,10 @@ const ResumeSection = () => (
             View or download my latest resume to learn more about my experience and qualifications.
           </p>
           <a
-            href="#"
+            href={resumePdf}
             target="_blank"
             rel="noopener noreferrer"
+            download="Gaurav_Bhamare_Resume.pdf"
             className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
           >
             <Download size={16} /> Download Resume

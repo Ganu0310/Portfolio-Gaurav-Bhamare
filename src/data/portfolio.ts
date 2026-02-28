@@ -49,10 +49,14 @@ export const projects = [
   },
 ];
 
+import pythonCert from "../assets/python_for_dsa.pdf";
+import netCert from "../assets/bit and bites.pdf";
+import awsCert from "../assets/aws.pdf";
+
 export const certifications = [
-  { title: "Python Certification", org: "Coursera", link: "#" },
-  { title: "Web Development Certification", org: "Udemy", link: "#" },
-  { title: "Data Science Certification", org: "edX", link: "#" },
+  { title: "Python for Data Structures and Algorithms", org: "NPTEL", link: pythonCert },
+  { title: "Bits and Bytes of Computer Networking", org: "Google", link: netCert },
+  { title: "AWS Cloud Practitioner", org: "AWS", link: awsCert },
 ];
 
 export const education = [
